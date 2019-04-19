@@ -125,8 +125,11 @@ Response:
 # Additional information
 
 A decided to add configurable property 'webcrawler.maxpages' with information how many pages can be checks for given domain.
-I added it for large pages to not be scouted in very long time. Client can override this behavior by adding 'maxPages' parameter in request.
-Thanks to this client can be more knowingly use scouting for large web pages.
+I added it for large pages to not be scouted in very long time. Client can override this behavior by adding 'maxPages' parameter in request. Thanks to this client can be more knowingly use scouting for large web pages.
+
+For scouting client can only give main domain as url.  
+Example of corrent url: https://wiprodigital.com  
+Example of incorrect url: https://wiprodigital.com/case/ 
 
 # Technologies
 
@@ -139,6 +142,7 @@ Thanks to this client can be more knowingly use scouting for large web pages.
 # Ideas for improving
 
 - multithreading for checking web page and building page information
+- handling full path url etc. https://wiprodigital.com/case/ and not only main domain
 - add REST methods for changing configuration without restarting app
 
 ## Run app
