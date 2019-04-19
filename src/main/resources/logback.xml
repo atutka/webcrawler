@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+    <property name="WEBCRAWLER_APP_LOG_DIR" value="logs"/>
+    <property name="BACKEND_LOG_FILE" value="webcrawler-app-backend-all.log"/>
+    <property name="BACKED_COMMUNICATION_LOG_FILE" value="webcrawler-app-backend-communication.log"/>
+    <property name="DEVELOPER_LOGS" value="developer-logs.log"/>
+    <property name="FILE_LOG_PATTERN"
+              value="%d{dd-MM-yyyy HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"/>
+
+    <property name="WEBCRAWLER_APP_DEFAULT_LOG_PATTERN" value="${FILE_LOG_PATTERN}"/>
+
+    <appender name="BACKEND_COMMUNICATION_LOG"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${WEBCRAWLER_APP_LOG_DIR}/webcrawler-app-backend-communication.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- daily rollover -->
+            <fileNamePattern>
+                ${WEBCRAWLER_APP_LOG_DIR}/${BACKED_COMMUNICATION_LOG_FILE}.%d{yyyy-MM-dd}.log
+            </fileNamePattern>
+            <maxHistory>2</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${WEBCRAWLER_APP_DEFAULT_LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="BACKEND_ALL_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${WEBCRAWLER_APP_LOG_DIR}/${BACKEND_LOG_FILE}</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- daily rollover -->
+            <fileNamePattern>${WEBCRAWLER_APP_LOG_DIR}/${BACKEND_LOG_FILE}.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>2</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${WEBCRAWLER_APP_DEFAULT_LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="org.springframework" level="INFO" additivity="true">
+        <appender-ref ref="BACKEND_ALL_LOG"/>
+    </logger>
+    <logger name="listenerLog" level="INFO" additivity="true">
+        <appender-ref ref="BACKEND_ALL_LOG"/>
+    </logger>
+
+
+    <logger name="com.wiprodigital.webcrawler.logging" level="INFO" additivity="true">
+        <appender-ref ref="BACKEND_COMMUNICATION_LOG"/>
+    </logger>
+
+</configuration>

@@ -11,6 +11,7 @@ public class ScoutWebRequestMapper implements Mapper<ScoutWebRequestDTO, ScoutWe
     {
         var target = new ScoutWebRequest();
         target.setMainDomain(source.getMainDomain());
+        target.setMaxPages(source.getMaxPages());
         return target;
     }
 }

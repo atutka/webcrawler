@@ -8,4 +8,6 @@ import lombok.Setter;
 public class ScoutWebRequest
 {
     private String mainDomain;
+
+    private Integer maxPages;
 }
